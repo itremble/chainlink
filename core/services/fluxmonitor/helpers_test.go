@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"math/big"
 	"net/http"
 	"testing"
 
@@ -19,31 +18,27 @@ func ExportedSetCheckerFactory(fm Service, fac DeviationCheckerFactory) {
 	impl.checkerFactory = fac
 }
 
-func (p *PollingDeviationChecker) ExportedFetchAggregatorData() error {
-	return p.fetchAggregatorData()
+//func (p *PollingDeviationChecker) ExportedRespondToLog(log interface{}) (bool, error) {
+//    return p.respondToLog(log)
+//}
+
+func (p *PollingDeviationChecker) ExportedPollIfEligible(threshold float64) {
+	p.pollIfEligible(threshold)
 }
 
-func (p *PollingDeviationChecker) ExportedRespondToLog(log interface{}) (bool, bool, error) {
-	return p.respondToLog(log)
-}
-
-func (p *PollingDeviationChecker) ExportedPoll() (bool, error) {
-	return p.poll(p.threshold)
-}
-
-// ExportedCurrentPrice returns the private current price for assertions;
-// technically thread unsafe because it can be set in parallel from
-// the CSP consumer.
-func (p *PollingDeviationChecker) ExportedCurrentPrice() decimal.Decimal {
-	return p.currentPrice
-}
-
-// ExportedCurrentRound returns the private current round for assertions;
-// technically thread unsafe because it can be set in parallel from
-// the CSP consumer.
-func (p *PollingDeviationChecker) ExportedCurrentRound() *big.Int {
-	return new(big.Int).Set(p.currentRound)
-}
+//// ExportedCurrentAnswer returns the private current answer for assertions;
+//// technically thread unsafe because it can be set in parallel from
+//// the CSP consumer.
+//func (p *PollingDeviationChecker) ExportedCurrentAnswer() decimal.Decimal {
+//    return p.currentRound.answer
+//}
+//
+//// ExportedCurrentRound returns the private current round for assertions;
+//// technically thread unsafe because it can be set in parallel from
+//// the CSP consumer.
+//func (p *PollingDeviationChecker) ExportedCurrentRound() *big.Int {
+//    return new(big.Int).Set(p.currentRound.roundID)
+//}
 
 func mustReadFile(t testing.TB, file string) string {
 	t.Helper()

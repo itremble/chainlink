@@ -81,6 +81,9 @@ var (
 	// AggregatorAnswerUpdatedLogTopic20191220 is the AnswerUpdated filter topic for
 	// the FluxAggregator as of Dec. 20th 2019. Eagerly fails if not found.
 	AggregatorAnswerUpdatedLogTopic20191220 = eth.MustGetV6ContractEventID("FluxAggregator", "AnswerUpdated")
+	// AggregatorSubmissionReceivedLogTopic20191220 is the SubmissionReceived filter topic for
+	// the FluxAggregator as of Dec. 20th 2019. Eagerly fails if not found.
+	AggregatorSubmissionReceivedLogTopic20191220 = eth.MustGetV6ContractEventID("FluxAggregator", "SubmissionReceived")
 )
 
 type logRequestParser interface {
