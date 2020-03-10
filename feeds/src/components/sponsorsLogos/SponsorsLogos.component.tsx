@@ -13,8 +13,14 @@ import haven from 'assets/sponsors/haven.png'
 
 import ReactGA from 'react-ga'
 
+interface Sponsor {
+  name: string
+  url: string
+  src: string
+}
+
 const grid = { xs: 24, sm: 12, md: 8 }
-const list = [
+const list: Sponsor[] = [
   {
     name: 'Synthetix',
     url: 'https://www.synthetix.io/',
@@ -67,7 +73,11 @@ const list = [
   },
 ]
 
-const Logo = ({ item }) => (
+interface LogoProps {
+  item: Sponsor
+}
+
+const Logo: React.FC<LogoProps> = ({ item }) => (
   <a
     className="logo-item"
     href={item.url}
@@ -106,7 +116,7 @@ const SponsorsLogos = () => (
     <h3>Used and Sponsored By</h3>
     <div className="logos">
       <Row gutter={18} type="flex" justify="space-around">
-        {list.map((sponsor, i) => (
+        {list.map((sponsor: Sponsor, i: number) => (
           <Col key={i} {...grid}>
             <Logo item={sponsor} />
           </Col>
