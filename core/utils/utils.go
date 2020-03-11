@@ -515,3 +515,16 @@ func Uint256ToHex(n *big.Int) (string, error) {
 	}
 	return common.BigToHash(n).Hex(), nil
 }
+
+// SafeByteSlice returns an error on out of bounds access to a byte array, where a
+// normal slice would panic instead
+func SafeByteSlice(ary []byte, start int, end int) (slice []byte, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			var empty []byte
+			slice = empty
+			err = errors.New("out of bounds slice access")
+		}
+	}()
+	return ary[start:end], nil
+}
